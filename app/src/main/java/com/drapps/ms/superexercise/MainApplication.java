@@ -12,12 +12,19 @@ import io.realm.Realm;
  */
 
 public class MainApplication extends Application {
-    ApiService api;
+     public ApiService api;
 
     @Override
     public void onCreate() {
         super.onCreate();
         Realm.init(this);
+    }
+
+    public ApiService getApiService(){
+        if(api == null){
+            api = ApiService.Factory.create();
+        }
+        return api;
     }
 
     public static MainApplication getAppligation(Context context){
