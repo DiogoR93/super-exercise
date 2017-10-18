@@ -31,6 +31,8 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
     compile 'io.reactivex:rxandroid:1.2.0'
     compile 'io.reactivex:rxjava:1.1.4'
+    compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
+    compile 'com.aurelhubert:ahbottomnavigation:2.0.6'
 
     testCompile 'junit:junit:4.12'
 }
