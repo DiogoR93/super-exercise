@@ -1,6 +1,7 @@
 package com.drapps.ms.superexercise;
 
 import android.graphics.Color;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     MainApplication app;
     AHBottomNavigation bottomNav;
     ViewPager viewPager;
-    FragmentPagerAdapter adapter;
+    ViewPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         setUpNavigation();
         setUpService();
-        getRaw();
+
     }
 
     private void setUpNavigation() {
@@ -66,6 +67,10 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new FragmentExercie1());
+        adapter.addFragment(new Fragment());
+        viewPager.setAdapter(adapter);
 
     }
 
@@ -74,47 +79,7 @@ public class MainActivity extends AppCompatActivity {
         api = app.getApiService();
     }
 
-    public void getRaw(){
-        rx.Observable<ResponseBody> observable = api.getString();
-        observable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<ResponseBody>() {
-                    @Override
-                    public void onCompleted() {
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                    }
-
-                    @Override
-                    public void onNext(ResponseBody response) {
-                        try {
-                            createList(response.string());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    });
-    }
-
-    private void createList(String string) {
-        try {
-            Log.i("TESTE","ERROR");
-            Scanner scanner = new Scanner(string);
-            int i = 0;
-            while (scanner.hasNext()) {
-                i++;
-                String line = scanner.nextLine();
-                String[] lineSperated = line.split(",");
-                Log.i("Line " + i, lineSperated[0] + " / " + lineSperated[11] + " - " + lineSperated[12]);
-
-            }
-            scanner.close();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
+    public ApiService getApi() {
+        return api;
     }
 }
