@@ -22,7 +22,6 @@ public class LocationsAdapter extends RecyclerView.Adapter<LocationsAdapter.View
 
     Fragment fragment;
     Realm realm;
-    String[] query = null;
     RealmResults<Locations> locations;
 
 
